@@ -45,7 +45,7 @@
     2. 分词极大值匹配算法（当前使用）
         - 将query和问题列表中的问题全部进行精确分词，将全部分词送入BERT计算特征向量，找出query分词中和问题分词中相似度最大的一对向量，对应的相似度取平均值，即认为是query和问题的相似度
         - 设待查询文本分词后转换为的特征向量组为 $q_1, q_2, ..., q_m$，问题列表中某一问题分词后的特征向量组为 $s_1, s_2, ..., s_n$，则这对向量相似度定义为 
-        $similarity(Q_x, S_y) = \frac{1}{m}\sum\limits_{i=1}^{m}\max\limits_{1\leq j\leq n} \left\{ cos\_ sim(q_i,s_j) \right\}$，
+        $similarity(Q_x, S_y) = \frac{1}{m}\sum\limits_{i=1}^{m}\max\limits_{1\leq j\leq n} \left \{ cos\_ sim(q_i,s_j) \right \}$，
         最终问题列表中的全部问题都与query进行计算，返回相似度前k高的问题
         - 可以解决非对称搜索问题，但是当搜索词过于简短时（如“请假”）偶尔会出现匹配不准确问题，搜索词信息越多匹配越准
     1. 赋权分词极大值匹配算法
