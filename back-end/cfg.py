@@ -1,0 +1,1 @@
+re = [{'number':1, 'match':'测试语句1', 'similarity':0.8765}, {'number':2, 'match':'测试语句2', 'similarity':0.1234}]
