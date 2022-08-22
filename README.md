@@ -45,13 +45,13 @@
     2. 分词极大值匹配算法（当前使用）
         - 将query和问题列表中的问题全部进行精确分词，将全部分词送入BERT计算特征向量，找出query分词中和问题分词中相似度最大的一对向量，对应的相似度取平均值，即认为是query和问题的相似度
         - 设待查询文本分词后转换为的特征向量组为 $q_1, q_2, ..., q_m$，问题列表中某一问题分词后的特征向量组为 $s_1, s_2, ..., s_n$，则这对向量相似度定义为 
-        $similarity(Q_x, S_y) = \frac{1}{m}\sum\limits_{i=1}^{m}\max\limits_{1\leq j\leq n} \{ cos\_ sim(q_i,s_j) \}$，
+        $similarity(Q_x, S_y) = \frac{1}{m}\sum\limits_{i=1}^{m}\max\limits_{1\leq j\leq n} \{ cossim(q_i,s_j) \}$，
         最终问题列表中的全部问题都与query进行计算，返回相似度前k高的问题
         - 可以解决非对称搜索问题，但是当搜索词过于简短时（如“请假”）偶尔会出现匹配不准确问题，搜索词信息越多匹配越准
     3. 赋权分词极大值匹配算法
         - 针对分词极大值匹配算法的问题进一步改进，为query分词后的每一个词赋权，尝试使匹配结果更加精确。其中赋权采用TF-IDF（词频逆向文件频率）算法，用于信息挖掘与文本检索的常用技术
         - 设待查询文本分词后转换为的特征向量组为 $(w_1, q_1), (w_2, q_2), ..., (w_m, q_m)$，问题列表中某一问题分词后的特征向量组为 $(W_1, s_1), (W_2, s_2), ..., (W_n, s_n)$，则这对向量相似度定义为 
-        $similarity(Q_x, S_y) = \frac{1}{m \times n}\sum\limits_{i=1}^{m}\sum\limits_{j=1}^{n} softmax(w_i) \times softmax(W_j) \times cos\_ sim(q_i,s_j)$，
+        $similarity(Q_x, S_y) = \frac{1}{m \times n}\sum\limits_{i=1}^{m}\sum\limits_{j=1}^{n} softmax(w_i) \times softmax(W_j) \times cossim(q_i,s_j)$，
         其中$w_{i,j}$为jieba分词赋权值，取softmax转换为概率分布，最终问题列表中的全部问题都与query进行计算，返回相似度前k高的问题
         - 由于jieba赋权更加关注某些名次和动词，权值不可控，导致效果比不赋权的更差。例如某个句子信息较多时，query可能与其中权重较低的某一词匹配，导致整体相似度分数低，因此不能很好的匹配。此外，BERT的区分度也可能与权重不匹配，导致检索不精确
 - 前端实现
