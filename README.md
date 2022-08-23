@@ -1,5 +1,15 @@
 # 基于BERT的文本匹配系统
 
+## 环境
+- environment.yaml
+- 使用sentence-transformers加载BERT，有三种预训练模型可以使用，包括
+```python
+BERT_MODEL1 = SentenceTransformer('distiluse-base-multilingual-cased')
+BERT_MODEL2 = SentenceTransformer('paraphrase-multilingual-MiniLM-L12-v2')
+BERT_MODEL3 = SentenceTransformer('paraphrase-multilingual-mpnet-base-v2')
+```
+- BERT_MODEL3测试效果最佳
+
 ## 更新：系统自我学习功能
 - 在搜索界面右上角加入“反馈”功能，可以让用户选择本次搜索结果中，哪些搜索结果是比较准确的
 ![](fig/homepage.png)
